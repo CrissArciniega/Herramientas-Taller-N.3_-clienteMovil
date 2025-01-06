@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvResultados;
     private EditText etIdCarrera;
-    private String baseUrl = "http://192.168.56.1:3000/carreras";
+    private String baseUrl = "http://10.10.16.78:3000/carreras";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
