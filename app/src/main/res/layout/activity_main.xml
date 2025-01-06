@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="394dp"
+        android:background="#F9F9F9"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_resultados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/border_resultados"
+            android:gravity="start|top"
+            android:padding="16dp"
+            android:scrollbars="vertical"
+            android:text="Resultados:"
+            android:textColor="#333333"
+            android:textSize="16sp" />
+    </ScrollView>
+
+    <!-- Otros elementos -->
+    <EditText
+        android:id="@+id/et_id_carrera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingrese ID de la carrera"
+        android:inputType="number"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/border_resultados"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/btn_crear_carrera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crear Carrera / POST"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_avanzar_carrera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Avanzar Carrera / PUT"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#FFC107"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_obtener_carreras"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Obtener Carreras / GET"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#2196F3"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_eliminar_carrera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Eliminar Carrera / DELETE"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="#F44336"
+        android:textColor="#FFFFFF" />
+
+</LinearLayout>
