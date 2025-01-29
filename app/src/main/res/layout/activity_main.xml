@@ -26,52 +26,22 @@
             android:textSize="16sp" />
     </ScrollView>
 
-    <!-- EditText corregido -->
-    <EditText
-        android:id="@+id/et_id_carrera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Ingrese ID de la carrera"
-        android:inputType="number"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/border_resultados"
-        android:padding="16dp"
-        android:minHeight="48dp" />
-
     <Button
-        android:id="@+id/btn_crear_carrera"
+        android:id="@+id/btn_empezar_carrera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Crear Carrera / POST"
+        android:text="Empezar Carrera"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#4CAF50"
         android:textColor="#FFFFFF" />
 
     <Button
-        android:id="@+id/btn_avanzar_carrera"
+        android:id="@+id/btn_sin_empezar_carrera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Avanzar Carrera / PUT"
+        android:text="Preparar corredores"
         android:layout_marginBottom="8dp"
         android:backgroundTint="#FFC107"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/btn_obtener_carreras"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Obtener Carreras / GET"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#2196F3"
-        android:textColor="#FFFFFF" />
-
-    <Button
-        android:id="@+id/btn_eliminar_carrera"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Eliminar Carrera / DELETE"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#F44336"
         android:textColor="#FFFFFF" />
 
 </LinearLayout>

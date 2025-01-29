@@ -3,7 +3,6 @@ package com.tvpodplus.herramientastallern3;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +17,7 @@ import java.util.Scanner;
 public class MainActivity extends AppCompatActivity {
 
     private TextView tvResultados;
-    private EditText etIdCarrera;
-    private String baseUrl = "http://10.10.16.78:3000/carreras";
+    private String apiUrl = "https://y0xoq93c1l.execute-api.us-east-2.amazonaws.com/post";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,48 +25,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvResultados = findViewById(R.id.tv_resultados);
-        etIdCarrera = findViewById(R.id.et_id_carrera);
 
-        Button btnCrear = findViewById(R.id.btn_crear_carrera);
-        Button btnAvanzar = findViewById(R.id.btn_avanzar_carrera);
-        Button btnObtener = findViewById(R.id.btn_obtener_carreras);
-        Button btnEliminar = findViewById(R.id.btn_eliminar_carrera);
+        Button btnEmpezar = findViewById(R.id.btn_empezar_carrera);
+        Button btnSinEmpezar = findViewById(R.id.btn_sin_empezar_carrera);
 
-        btnCrear.setOnClickListener(v -> realizarAccion("POST", ""));
-        btnAvanzar.setOnClickListener(v -> {
-            String id = etIdCarrera.getText().toString().trim();
-            if (!id.isEmpty()) {
-                realizarAccion("PUT", "/" + id);
-            } else {
-                Toast.makeText(this, "Por favor, ingrese un ID válido", Toast.LENGTH_SHORT).show();
-            }
-        });
-        btnObtener.setOnClickListener(v -> realizarAccion("GET", ""));
-        btnEliminar.setOnClickListener(v -> {
-            String id = etIdCarrera.getText().toString().trim();
-            if (!id.isEmpty()) {
-                realizarAccion("DELETE", "/" + id);
-            } else {
-                Toast.makeText(this, "Por favor, ingrese un ID válido", Toast.LENGTH_SHORT).show();
-            }
-        });
+        btnEmpezar.setOnClickListener(v -> realizarAccionCarrera("empezar"));
+        btnSinEmpezar.setOnClickListener(v -> realizarAccionCarrera("sin_empezar"));
     }
 
-    private void realizarAccion(String metodo, String ruta) {
+    private void realizarAccionCarrera(String accion) {
         new Thread(() -> {
             try {
-                URL url = new URL(baseUrl + ruta);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setRequestMethod(metodo);
+                String body = "{\"accion\": \"" + accion + "\"}";
 
-                if (metodo.equals("POST")) {
-                    conn.setRequestProperty("Content-Type", "application/json");
-                    conn.setDoOutput(true);
-                    String body = "{\"numero_de_corredores\":2,\"distancia_recorrida\":20}";
-                    OutputStream os = conn.getOutputStream();
-                    os.write(body.getBytes());
-                    os.close();
-                }
+                URL url = new URL(apiUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setDoOutput(true);
+                OutputStream os = conn.getOutputStream();
+                os.write(body.getBytes());
+                os.close();
 
                 int responseCode = conn.getResponseCode();
                 String resultado;
@@ -78,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
                     String response = scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
                     scanner.close();
 
-                    // Formatear JSON
                     try {
                         JSONObject json = new JSONObject(new JSONTokener(response));
-                        resultado = json.toString(4);
+                        resultado = json.getString("body");
                     } catch (Exception e) {
                         resultado = response;
                     }
@@ -89,11 +65,18 @@ public class MainActivity extends AppCompatActivity {
                     resultado = "Error en la acción: " + responseCode;
                 }
 
-                String finalResultado = resultado;
+                String finalResultado = formatoResultados(resultado);
                 runOnUiThread(() -> tvResultados.setText(finalResultado));
             } catch (Exception e) {
                 runOnUiThread(() -> Toast.makeText(this, "Error de conexión", Toast.LENGTH_SHORT).show());
             }
         }).start();
+    }
+
+    private String formatoResultados(String resultados) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Resultados de la Carrera\n\n");
+        sb.append(resultados.replace("\n", "\n\n"));
+        return sb.toString();
     }
 }
